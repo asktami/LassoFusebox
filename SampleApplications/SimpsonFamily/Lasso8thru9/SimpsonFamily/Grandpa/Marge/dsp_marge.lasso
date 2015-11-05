@@ -1,0 +1,1 @@
+<img src="[$currentpath][$img]marge.gif" alt="marge" border="0">

@@ -1,0 +1,1 @@
+To use this application you must enter your mail host and email address on lines 59-62 of the fbx_Settings.inc file.

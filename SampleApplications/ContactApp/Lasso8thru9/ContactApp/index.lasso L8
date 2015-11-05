@@ -1,0 +1,44 @@
+[
+// can use include vs. FBX_Include because I'm using exact paths
+
+// a custom tag to get the real server name from the headers from greg willits
+// use because the [server_name] tag sometimes has problems with multiple virtual hosts on the same IP
+// Example: [thisServerName]
+
+if( !(lasso_tagexists('getServerName')) );
+define_tag('getServerName');
+local('host'=string_findregexp(client_headers,-find='(.*)HOST(.*)',-ignorecase)->get(3));
+local('subHost'=#host->split('.')->get(2));
+	#host->trim;
+	#subHost->trim;
+return(string(#subHost));
+/define_tag;
+/if;
+	
+//
+
+
+// this protects against malicious site Cross-Site Request Forgery Attack (CSRF)
+if(
+string(referrer_URL) != ''  &&  !string(referrer_URL)->Contains(getServerName) &&  (!string(referrer_URL)->Contains('asktami')) );
+	'<br />Invalid Access!';
+	abort;
+/if;
+
+
+include('fbx_LassoFusebox3.inc');
+
+]
+
+
+[output_none]
+Log Fields:
+Log Fields:
+Date	SessionID	Referrer_URL	Server_Name	Server_Time	Client_IP	Client_Browser	Response_FilePath	Client_GetArgs	Client_PostArgs	var:'lid'	Error_CurrentError: -ErrorCode	Error_CurrentError+errCkVariables
+[/output_none]
+
+[encode_set(-encodenone)]
+[Variable('Log_File' ='logs/' + Server_Date(-Extended) + '_SessionLog.txt')]
+[Log(Variable('Log_File'))][Date_Format((Date), -Format='%D')]	[Session_ID(-Name=var('sessionName'))]	[Referrer_URL]	[Server_Name]	[Server_Time]	[Client_IP]		[Client_Browser]	[Response_FilePath]	[Client_GetArgs]	[Client_PostArgs]	LID [var('lid')]	ERR [Error_CurrentError(-ErrorCode)]	[Error_CurrentError] | errckAction = [$errckAction] | errckFound = [$errckFound] | errckCode = [$errckCode] | errckError = [$errckError] | errckDbname = [$errckDbname] | errckTblname = [$errckTblname] | feedback = [$feedback] | logMessage = [$logMessage]
+[/Log]
+[/encode_set]

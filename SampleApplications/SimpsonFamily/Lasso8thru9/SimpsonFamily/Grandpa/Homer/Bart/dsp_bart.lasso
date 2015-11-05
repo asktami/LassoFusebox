@@ -1,0 +1,1 @@
+<img src="[$currentpath][$img]bart.gif" alt="" border="0">
