@@ -1,0 +1,19 @@
+<?LassoScript
+
+Select:$fuseaction;
+
+case: 'defaultfuseaction';
+// This will be the value returned if someone types in "circuitname.", omitting the actual fuseaction request
+// EX: if in url fuseaction="marge" or "marge."
+'DEFAULT FUSEACTION FOR THIS CIRCUIT ' + $circuit + ' WHEN NOT SPECIFIED IN URL' ;
+
+case:'main';
+		FBX_Include: 'dsp_marge.lasso' ;
+		
+case;
+	// unknown fuseaction
+		FBX_IncludeCommon: 'dsp_unknownfuseaction.inc' ;
+		
+/Select;
+
+?>

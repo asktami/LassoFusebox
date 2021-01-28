@@ -1,0 +1,150 @@
+README June 2008
+Author: Tami Williams, tami@asktami.com
+----------------------------------------------------------
+
+My modifications necessitate in a change in the syntax for the fbx_Circuits.inc file:
+You MUST have at least one line that maps the rootcircuit alias name.
+You don't need to define a circuit named "error".
+
+DO NOT use the custom tags "FBX_Include.." or "FBX_IncludeCommon:.." to include files which define custom tags - it won't work!  Use the regular Lasso [include] tag.
+
+If you give a fuseaction the same name as its circuit then if the fuseaction passed in the url is just the circuit name the matching fuseaction runs
+
+EX:
+If there's a "child" circuit with a "child" fuseaction defined in its fbx_Switch.inc,
+if the url =  "default.lasso?fuseaction=child"  or url = "default.lasso?fuseaction=child." (note the period)
+then the case statement for "defaultfuseaction" fuseaction in the "child" circuit runs
+and if there is no "defaultfuseaction" then the unknown fuseaction case statement runs.
+
+MAJOR CHANGE: This is because I changed the core file section 8:
+
+FROM
+				If:($fuseaction->(Split:'.')->Size == 2 && $fuseaction->(EndsWith:'.')) || $fuseaction->(Split:'.')->Size == 1;
+					else;
+					$fuseaction = $fb_->(Find:'rawFA')->(Split:'.')->(Get:2);
+				/If;
+				
+TO
+				if: ($fuseaction->(Split:'.')->Size == 2 && $fuseaction->(EndsWith:'.')) || $fuseaction->(Split:'.')->Size == 1 ;
+					$fuseaction= 'defaultfuseaction';
+					else;
+			$fuseaction = $fb_->(Find:'rawFA')->(Split:'.')->(Get:2);
+				/If;
+		
+	------
+	
+Another change to the core file:
+changed custom error -10011 and added -10012 so now displays error messages if problems in any fbx_layout file (for example: a variable $thisvar in a fbx_layout.inc which has not yet been defined)
+	
+	------
+
+NOTE:
+Turning FRAMES on or off is determined by the individual circuit settings, switch files and exit fuseactions (XFAs).
+
+
+fbx_Globals.inc:
+
+You MUST put the default fuseaction in fbx_Globals.inc.
+
+EX:
+var:'fuseaction' = 'start.welcome' ;
+
+I put settings here that, if missing, would break the application; it may be overridden by settings in the application's root fbx_Settings.inc and settings in child circuits.
+
+The fbx_Globals.inc variables are static and unchanged by the application.
+
+
+fbx_Settings.inc: 
+
+Has a mix of static and dynamic (changed by the application) variables.
+DO put settings here that use/rely on fusebox map variables.
+
+EX:
+var: 'self' = 'default.lasso?'+ (noCache) +  '&fuseaction=' ;
+OR
+var: 'self' = 'http://127.0.0.1/Site/default.lasso?'+ (noCache) + '&fuseaction='  ,
+'SSL_self' = 'https://127.0.0.1/Site/default.lasso?'+ (noCache) + '&fuseaction=' ;
+ 
+ 
+fbx_Switch.inc:
+
+** Always include the $self or $self_SSL variable (from root fbx_Settings.inc) in exit fuseactions (XFAs) and redirects.
+
+EX:
+var:  'XFA_allprojects' = $self + 'project.allprojects' ;
+
+MAJOR CHANGE: removed output_none.../output_none from the fbx_Switch files.			 
+
+NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  
+//  In fbx_Switch.inc
+// Pages that need to use (action_params) can not be saved into the layout variable, 
+//	 they MUST be regular included in the switch file like this: 
+//	 include: $currentpath + 'qry_updatecart.inc' ;
+// instead of like this:
+// includethis: 'qry_updatecart.inc'
+
+
+
+*********
+// see _common/dsp_feedback.inc
+
+When checking for errors use
+[if: !($errckError >> 'no error') || $errckCode != 0]
+INSTEAD OF
+[if: $errckError != ''  || $errckCode != 0 ]
+
+BECAUSE in the fbx_LassoFusebox core and in the root fbx.Settings.inc 
+$errckError is set to [Error_NoError] or "no error" instead of  ''
+
+Also, since !>> (not contains) was not introduced until Lasso 7, _common/dsp_feedback.inc uses !(something >> something else),
+when using Lasso 7 or greater you can use (something !>> somethingelse).
+
+*********
+
+FIRST MAKE SURE THAT 
+.css and .js are added to Lasso Page Extensions at
+Lasso Site Admin Setup File Extensions Lasso Page Settings:
+
+
+// IF NOT creating a LassoAPP this is how you would refer to the external style sheet:
+<link rel="stylesheet" type="text/css" href="[$css]core.css">
+
+// and this is how you would refer to the external javascript:
+<script language="JavaScript"  src="[$js]core.js"></script>
+
+
+// IF creating a LassoAPP this is how you would refer to the external style sheet:
+// (FIRST add ".css" to  Lasso Site Admin, Lasso Page Settings, File Extensions)
+<style>[FBX_Include: (LassoApp_Link: $css + 'core.css')]</style>
+
+// and how you would refer to the external javascript:
+// (FIRST add ".js" to  Lasso Site Admin, Lasso Page Settings, File Extensions)
+<script language="JavaScript"  src="[FBX_Include: (LassoApp_Link: $js + 'core.js')]"></script>
+
+
+*********
+
+var: 'self' ='default.lasso?fuseaction=' ;
+
+// alternative [$self] variable with random number [noCache] custom tag included to defeat caching
+// var: 'self' ='default.lasso?' + (noCache) +  '&fuseaction=' ;
+// var: 'ssl_self' = 'https://IPADDRESS/default.lasso?' + (noCache) +  '&fuseaction=' ;
+
+
+// IF you're going to create a LassoApp of this application change the [$self] variable to:
+// var: 'self' ='ContactApp.LassoApp?fuseaction=' ;
+
+
+
+*********
+
+FORMATTING DATES:
+
+// FMP timestamp format (%D %r) looks like this: 09/02/2006 03:33:25 PM
+// MySQL datetime & timestamp format (%Q %T) looks like: 2006-09-02 15:33:25
+
+example:
+Date_SetFormat: -Format='%Q %T';  // sets the default formatting for all dates in the current format file
+
+example:
+Date_Format: (Date),-Format='%Q %T';  // formats today's date

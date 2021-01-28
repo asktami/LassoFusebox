@@ -1,0 +1,99 @@
+2/2005 Notes on how  'asktami_LassoFusebox3.3' was incorporated into the LassoFusebox core files in 2005
+My demo files are tested with versions 6.0.4 to 8.0.1, 8.5.6 - 9.1.4
+
+*****************
+
+NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  
+
+v3.3: I made changes in the core file to so that it now finds the fbx_Settings files in child folders.
+This is something that original fusebox did do but previous versions of asktami_LassoFusebox did not do.
+
+I also changed how my core file handles a bad circuit name - which means that you MUST have a fbx_Switch.inc file in your "root_folder".
+
+
+*****************
+
+Ways different from original fusebox:
+- uses ".inc" instead of ".lasso" for fbx_ files.
+- has a fbx_Globals.inc file
+- doesn't have custom tags "SaveContent" (replaced with variable "layout") or "FBX_Include" (replaced with custom tag "FBX_Include") or "FBX_Redirect"
+- my "FBX_Param" is different - it creates a variable with the default value IF the variable doesn't exist OR exists but is empty.
+- I inclulde the fbx_Sessions.inc file AFTER converting action params to vars (instead of before) and so my Session variables override the action_params
+- I only convert action_params that don't start with "-" or "_" to variables
+- Does not use the "showErrors" variable (for custom fusebox messages) but it is in the core file for backwards compatibility.
+
+*****************
+
+NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  NOTE  
+If you want to override a variable's value in a child folder's fbx_Settings file you must use the "var:" syntax in that child folder's fbx_Settings file. 
+You can NOT use "FBX_Param:" to override an existing variable's value.
+
+********************
+NOTE: add any additional custom tags/types to the "fbx_CustomTags.inc" file. 
+
+DO NOT use the custom tags "FBX_Include:.." or "FBX_IncludeCommon:.." to include files which define custom tags - it won't work!
+
+All asktami_Fusebox core custom tags are in fbx_Library.inc in the application's root folder.
+
+*****************
+
+I've corrected the "stopLayout" ability in fbx_Layouts.inc.
+
+I've changed the core to display a better error message if missing the default fuseaction.
+
+Also, if you give a fuseaction the same name as its circuit then if the fuseaction passed in the url is just the circuit name the 'default' fuseaction runs
+
+EX:
+If there's a "child" circuit with a "child" fuseaction defined in its fbx_Switch.inc,
+if the url =  "site.lasso?fuseaction=child"  or url = "site.lasso?fuseaction=child." (note the period)
+then the case statement for "defaultfuseaction" fuseaction in the "child" circuit runs
+and if there is no "defaultfuseaction" then the unknown fuseaction case statement runs.
+
+	
+
+NOTE:
+Turning FRAMES on or off is determined by the individual circuit switch files and exit fuseactions (XFAs).
+
+
+fbx_Globals.inc:
+You MUST put the default fuseaction in fbx_Globals.inc.
+
+EX:
+FBX_Param(-Name='fuseaction', -Default='start.welcome' );
+
+
+
+fbx_Switch.inc:
+
+** Always include the $self or $self_SSL variable (from fbx_Globals.inc) in exit fuseactions (XFAs) and redirects.
+
+var('XFA_allprojects' = $self + 'project.allprojects' );
+redirect_url($self + 'project.submit' );
+redirect_url($self_SSL + 'project.paymentform' );
+
+
+** FBX_Include =
+a custom tag so I don't have to keep writing: 
+$layout = include($currentPath +  'thisfilename.inc' );
+
+** FBX_IncludeCommon =
+a custom tag so I don't have to keep writing: 
+$layout = include('_common/thisfilename.inc' );
+for including files from the application's root/_common folder
+
+EX:
+FBX_Include('dsp_paymentform.inc' );
+FBX_IncludeCommon('dsp_unknownfuseaction.lasso');	
+
+
+In fbx_Switch.inc  you can no longer display messages in the browser this way: 
+	  case;
+	  $layout = 'this is the default case tag in a circuit' 
+	  /select;
+
+Instead do it without "$layout=":
+	  case;
+	  'this is the default case tag in a circuit'
+	  /select;
+
+MAJOR CHANGE: removed output_none.../output_none from the fbx_Switch files.

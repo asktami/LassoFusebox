@@ -1,0 +1,1 @@
+[Email_Send:	-Host=($EmailHost),	-From=($EmailAddress),	-To=($getPasswordByEmail.Email),	-Subject='LassoFusebox: Forgotten Password',	-Body=(String_Concatenate:'Your password is: ',($getPasswordByEmail.Password))]

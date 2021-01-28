@@ -1,0 +1,29 @@
+
+body
+  {
+  font-family: verdana,arial,helvetica,sans-serif;
+  font-size: 12px;
+	}
+a
+{
+	font-size: 12px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	text-decoration: underline;
+}
+a:visited
+{
+    color: #000066
+}
+a:hover
+{
+    color: green}
+
+.red {
+color:maroon;
+background-color:transparent;
+font-weight:700;
+}
+
+input:focus,textarea:focus {
+background:#FF9;
+}

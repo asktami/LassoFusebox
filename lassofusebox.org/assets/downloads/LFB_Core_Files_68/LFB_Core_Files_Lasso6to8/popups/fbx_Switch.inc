@@ -1,0 +1,1 @@
+<?LassoScriptEncode_Set: -EncodeNone;select: $fuseaction;				case: 'popwin' ;					FBX_Include: 'pop_example.inc';					case;// unknown fuseaction		FBX_IncludeCommon:  'dsp_unknownfuseaction.inc' ;/select;/Encode_Set;?>

@@ -1,0 +1,56 @@
+<?LassoScript
+
+
+
+select: $fuseaction;
+
+case: 'defaultfuseaction';
+		// This will be the value returned if someone types in "circuitname." or "circuitname", omitting the actual fuseaction request
+		'This is the default fuseaction for this circuit <b>" ' + $circuit + '"</b> when a fuseaction is not specified in the url.' ;
+
+
+case: 'frameset';
+			FBX_Include: 'dsp_frameset.inc' ;
+
+case: 'welcome' ;
+			var:'bgcolor' = 'pink';
+			'Welcome to the LassoFusebox and Frames Example' ;
+			FBX_Param: -Name='pgTitle', -Default='Welcome to the LassoFusebox and Frames Example' ;
+	
+case: 'banner' ;
+			var:'bgcolor' = 'cyan';
+			FBX_Include: 'dsp_banner.inc' ;
+			FBX_Param: -Name='pgTitle', -Default='' ;
+
+
+case: 'menu' ;
+			FBX_Param: -Name='pgTitle', -Default='' ;
+			var:'bgcolor' = 'yellow';
+			FBX_Param: -Name='XFA_home', -Default=$self +'home.welcome' ;
+			FBX_Param: -Name='XFA_tutorials', -Default=$self +'home.tutorials' ;
+			FBX_Param: -Name='XFA_essays', -Default=$self +'main.essays' ;
+			FBX_Param: -Name='XFA_hire_me', -Default=$self +'home.hire_me' ;
+			FBX_Include: 'dsp_mainmenu.inc' ;
+
+
+case: 'tutorials' ;
+			'Here\'s where I would display my Tutorials.' ;
+			FBX_Param: -Name='pgTitle', -Default='Welcome to the Tutorials' ;
+
+case: 'essays' ;
+			'Here\'s where I would display my Essays.' ;
+			FBX_Param: -Name='pgTitle', -Default='Welcome to the Essays' ;
+
+case: 'hire_me' ;
+			'Would you like me to work for you?' ;
+			FBX_Param: -Name='pgTitle', -Default='Hire Me!' ;
+			
+
+case;
+// unknown fuseaction
+	FBX_IncludeCommon: 'dsp_unknownfuseaction.inc' ;
+
+/select;
+
+
+?>

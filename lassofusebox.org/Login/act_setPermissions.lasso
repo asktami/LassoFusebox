@@ -1,0 +1,1 @@
+[Variable:'Session_ID' = ($getLogin.ID)][Variable:'Session_FirstName' = ($getLogin.FirstName)]

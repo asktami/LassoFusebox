@@ -1,0 +1,140 @@
+/*Style Sheet for Version 4 Browsers */
+body {
+	background-color : #FFFFFF;
+	background-image : url(assets/images/gw3_pgbg.gif);
+	background-repeat : repeat-x
+}
+
+/*Styles for the Main Content Layer */
+.maindiv {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size : 14px;
+	padding-left : 48px;
+	padding-right : 36px
+}
+
+
+.maindiv h1 {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 16px;
+}
+
+.maindiv h2 {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 16px;
+}
+
+.maindiv a:link { color : #9999CC }
+.maindiv a:visited { color : #996633 }
+.maindiv a:hover { color : #7D7EBD }
+
+/* Lists*/
+ul {
+	color : #9999CC;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size : 14px;
+	margin-right : 36px
+}
+
+ol {
+	color : #99CC66;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size : 14px;
+	margin-right : 36px
+}
+
+/*Style for The Little Icon Layers */
+.icondiv a { color:#FFFFFF }
+.icondivL a { color:#FFFFFF }
+
+/*Style Applied to the Sidebar Layer */
+.navDiv {
+	color : #999999;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size : 14px
+}
+
+.navDiv h1 {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 16px
+}
+
+.navDiv h2 {
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 16px
+}
+
+/*Style Applied to the Paragraphs for Main Section Links */
+p.navButts {
+	color : #333333;
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 14px;
+	margin-bottom : 4px;
+	margin-left : 0px;
+	margin-top : 6px
+}
+
+.navButts a { color : #666666; text-decoration : underline }
+
+.navButts a:hover { color : #999999; text-decoration : none }
+
+/*Style Applied to the Paragraphs for the Sub-Section Links */
+p.navSubs {
+	color : #333333;
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 12px;
+	margin-bottom : 2px;
+	margin-left : 12px;
+	margin-top : 0px
+}
+
+.navSubs a { color : #333333; text-decoration : none }
+
+.navSubs a:hover { color : #999999; text-decoration : none }
+
+/*Style Applied to the Paragraphs for Static Down-State Main Section Links */
+p.navViz {
+	color : #333333;
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 14px;
+	font-weight : bold;
+	margin-bottom : 6px;
+	margin-left : 0px;
+	margin-top : 6px
+}
+
+.navViz a { color : #666666; text-decoration : underline }
+
+/*Style Applied to the Paragraphs for Copyright-Small-Text */
+p.copyrights {
+	color : #999999;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	margin-bottom : 12px;
+	margin-top : 60px
+}
+
+p.footer {
+	color : #999999;
+	font-family : Arial, Helvetica, sans-serif;
+	font-size : 11px;
+	margin-top : 6px
+}
+
+
+/*Turns off Borders around Hyperlinked Images- Apply to a-tags*/
+
+a.nn4imgWhite { color: #FFFFFF}
+
+
+/*Styles Applied to Form Elements*/
+form td {
+	color : #333333;
+	font-family : Verdana, Arial, Helvetica, sans-serif;
+	font-size : 12px
+}
+
+/*Styles Applied to Float Images left or right */
+.imgfloatright { float : right }
+
+.imgfloatleft { float : left }

@@ -1,0 +1,32 @@
+<?LassoScript
+Output_None;
+/*
+<fusedoc fuse="act_email.inc" language="Lasso" specification="3.0">
+	<responsibilities>I send the email.</responsibilities>
+	<properties>
+		<history author="Rich Tretola" date="02/06/2003" email="rich@lassofusebox.org" role="Architect" type="Create"/>
+		<history author="Tami Williams" date="05/23/06" email="tami@asktami.com" type="Update" />
+	</properties>
+	<io>
+		<in>
+			<String name="gmailhost" format="LDML" Scope="variables"/>
+			<String name="fromEmail" format="LDML" Scope="variables"/>
+			<String name="email" format="LDML" Scope="variables"/>
+			<String name="subject" format="LDML" Scope="variables"/>
+			<String name="body" format="LDML" Scope="variables"/>
+		</in>
+		<out>
+		</out>
+	</io>
+</fusedoc>
+*/
+
+Email_Send: -Host=($gmailhost),
+-To=($email),
+-BCC=($gmailbcc),
+-From=($fromEmail),
+-Subject=($subject),
+-Body=($message);
+
+/Output_None;
+?>

@@ -1,0 +1,1 @@
+[Variable:'url' = (String_Concatenate: ($self),'?fuseaction=',($xfa_redirect))][header] HTTP/1.0 302 FOUND Location: [$url] [/header] 

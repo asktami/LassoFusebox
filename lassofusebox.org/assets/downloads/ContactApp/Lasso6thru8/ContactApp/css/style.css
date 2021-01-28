@@ -1,0 +1,43 @@
+.red
+{
+	font-family: Verdana, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	text-decoration: none;
+	color: #ff0000;
+}
+
+.Headline {
+	font-family: Verdana, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #000000;
+	text-decoration: none;
+	font-weight: bolder;
+	text-transform: uppercase;
+}
+.messagefont {
+	font-family: Verdana, Helvetica, sans-serif;
+	font-size: 12px;
+	text-decoration: none;
+	color: #ff0000;
+}
+
+.boldcopy {
+	font-family: Verdana, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	font-weight: bold;
+}
+
+.bodycopy {
+	font-family: Verdana, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+}
+
+.border {
+	border-top: 1px solid #000000;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #000000;
+}

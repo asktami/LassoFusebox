@@ -1,0 +1,1 @@
+[if($stopLayout == 'Y' )]	  [$layoutFile = '']	 [else]	[var('layoutfile' = 'lay_default.inc')][/if][var('layoutdir' = '')]
