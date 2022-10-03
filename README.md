@@ -17,7 +17,7 @@ Please use the directory for the version of Lasso:
 
 Whitepapers are available in the "[Docs](https://github.com/asktami/LassoFusebox/tree/master/Docs)" folder.
 
-The [LassoFusebox.org](http://www.lassofusebox.org 'LassoFusebox') web site has a thorough explanation of the framework and running demo applications.
+The [LassoFusebox.org](http://www.lassofusebox.org 'LassoFusebox') web site was discontinued in 2020.
 
 # Support
 
